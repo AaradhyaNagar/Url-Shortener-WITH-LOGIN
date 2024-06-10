@@ -1,6 +1,6 @@
 # Description
 
-A simple Node.js application that creates a custom Short URL for your Link, without a login page
+A simple Node.js application that creates a custom Short URL for your Link, with a login page
 
 # To-Do
 
