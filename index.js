@@ -5,7 +5,8 @@ const connectMongoDB = require("./connection");
 const cookieParser = require("cookie-parser");
 const PORT = 8001;
 
-const homeRoute = require("./routes/staticRouter");
+const { restrictToLoggedInUserOnly } = require("./middlewares/auth");
+const { appRoute, homeRoute } = require("./routes/staticRouter");
 const { registerRoute, logInRoute } = require("./routes/user");
 const { generateRoute, redirectRoute } = require("./routes/url");
 
@@ -23,7 +24,9 @@ app.use(cookieParser());
 
 app.use("/", homeRoute);
 
-app.use("/url", generateRoute);
+app.use("/app", restrictToLoggedInUserOnly, appRoute);
+
+app.use("/url", restrictToLoggedInUserOnly, generateRoute);
 app.use("/short", redirectRoute);
 
 app.use("/login", logInRoute);

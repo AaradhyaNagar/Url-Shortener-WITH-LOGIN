@@ -1,7 +1,7 @@
 const express = require("express");
 const URL = require("../models/url");
-const { restrictToLoggedInUserOnly } = require("../middlewares/auth")
 const homeRoute = express.Router();
+const appRoute = express.Router();
 
 homeRoute.get("/", (req, res) => {
   console.log("Hemlo from home page");
@@ -16,9 +16,9 @@ homeRoute.get("/register", (req, res) => {
   return res.render("register-page");
 });
 
-homeRoute.get("/app", restrictToLoggedInUserOnly, async (req, res) => {
+appRoute.get("/", async (req, res) => {
   const allUrls = await URL.find({});
   return res.render("application-page", { urls: allUrls });
 });
 
-module.exports = homeRoute;
+module.exports = {homeRoute,appRoute};
